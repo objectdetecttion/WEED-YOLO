@@ -1,0 +1,17 @@
+# 自定义姿态数据集 data.yaml（由 main_split_image4txt.py 输出元数据推导）
+# 目录结构（相对本 yaml）：
+#   images/{train,val,test}/*.jpg
+#   labels/{train,val,test}/*.txt   # 每行 8 列: cls cx cy w h kx ky vis
+
+train: images/train
+val: images/val
+test: images/test
+
+task: pose
+kpt_shape: [1, 3]     # 来自 keypoint_filter_record.yaml: output_kp_number=1
+
+nc: 3
+names:                # 索引顺序 = 标签里的 class_id（与 label_map.yaml 一致）
+  0: shanghaiqing
+  1: negweed
+  2: heimaicao

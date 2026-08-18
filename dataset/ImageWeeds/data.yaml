@@ -1,0 +1,6 @@
+train: images/train
+val: images/val
+test: images/test
+
+nc: 5
+names: ['ragweed', 'waterhemp', 'horseweed', 'redrootpigweed', 'kochia']

@@ -1,0 +1,6 @@
+train: images/train
+val: images/val
+test: images/test
+
+nc: 13
+names: ['Blackbean', 'Canola', 'Corn', 'Field Pea', 'Flax', 'Horseweed', 'Kochia', 'Lentil', 'Ragweed', 'Redroot Pigweed', 'Soybean', 'Sugar beet', 'Waterhemp']

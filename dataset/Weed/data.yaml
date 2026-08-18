@@ -1,0 +1,6 @@
+train: images/train
+val: images/val
+test: images/test
+
+nc: 8
+names: ['asthma-plant', 'beggars-tick', 'crab-grass', 'dog-s-tongue', 'goatweed', 'hagonoy', 'nut-grass', 'shameplant']

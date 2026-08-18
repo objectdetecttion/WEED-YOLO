@@ -1,0 +1,6 @@
+train: images/train
+val: images/val
+test: images/test
+
+nc: 6
+names: ['bean', 'stem_bean', 'maize', 'stem_maize', 'leek', 'stem_leek']
