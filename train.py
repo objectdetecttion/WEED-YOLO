@@ -2,13 +2,14 @@ from ultralytics import YOLO
 
 # ==================== 任务配置 ====================
 MODEL = "MIE-pose.yaml"             # 姿态: MIE-pose.yaml / 检测: MIE-YOLO.yaml
-PRETRAINED = "yolo11n-pose.pt"      # 预训练权重：检测用 True；pose 任务用 "yolo11n-pose.pt"
+PRETRAINED = True                   # 布尔值！不要写成字符串 "true"（会报 AssertionError: not .true）。
+                                    # 注：模型为 yaml 时 pretrained=True 实际不加载任何权重（yaml+True=空操作）
 DATA = "dataset/MyData/data.yaml"   # 换成你的自定义数据集 yaml
 
 # ==================== 训练配置 ====================
 EPOCHS = 300
-IMGSZ = 960                         # 640 → 960，小目标关键点回归更吃分辨率
-BATCH = 32                          # 显存不足时调小（如 16），并相应调低 lr0
+IMGSZ = 640
+BATCH = 64
 WORKERS = 8
 DEVICE = 0
 CACHE = False
@@ -25,46 +26,46 @@ SINGLE_CLS = False
 RECT = False
 
 # ==================== 优化器与学习率 ====================
-OPTIMIZER = "SGD"                   # SGD / Adam / AdamW / auto
-LR0 = 0.005                         # 初始学习率（SGD 常用 0.005~0.01）
+OPTIMIZER = "SGD"
+LR0 = 0.01
 LRF = 0.01                          # 最终学习率 = lr0 * lrf
 MOMENTUM = 0.937
-WEIGHT_DECAY = 0.0001               # 默认 5e-4 → 1e-4，小数据集更稳
+WEIGHT_DECAY = 0.0005
 WARMUP_EPOCHS = 3.0
 WARMUP_MOMENTUM = 0.8
 WARMUP_BIAS_LR = 0.1
-COS_LR = True                       # 余弦退火，长训练收敛更好
+COS_LR = False
 NBS = 64                            # 名义 batch size（loss 归一化用）
 
 # ==================== 损失权重 ====================
 BOX = 7.5
 CLS = 0.5
 DFL = 1.5
-POSE = 14.0                         # 关键点损失权重（默认 12，卡点回归时调高）
-KOBJ = 1.0                          # 关键点可见性损失权重
+POSE = 12.0
+KOBJ = 1.0
 LABEL_SMOOTHING = 0.0
 
 # ==================== 数据增强 ====================
 HSV_H = 0.015
 HSV_S = 0.7
 HSV_V = 0.4
-DEGREES = 0.0                       # 旋转（度），小幅旋转 5~10 可提泛化
+DEGREES = 0.0
 TRANSLATE = 0.1
-SCALE = 0.2                         # 默认 0.5，缩放太大对点坐标有害
-SHEAR = 0.1
+SCALE = 0.5
+SHEAR = 0.0
 PERSPECTIVE = 0.0
-FLIPUD = 0.5                        # 上下翻转
-FLIPLR = 0.5                        # 左右翻转
-MOSAIC = 0.6                        # 默认 1.0，拼接错位会引入关键点噪声，调低更利于 pose
+FLIPUD = 0.0
+FLIPLR = 0.5
+MOSAIC = 1.0
 MIXUP = 0.0
 CUTMIX = 0.0
 COPY_PASTE = 0.0
-CLOSE_MOSAIC = 30                   # 最后 N 个 epoch 关闭 mosaic，稳定训练
+CLOSE_MOSAIC = 10                   # 最后 N 个 epoch 关闭 mosaic
 
 # ==================== 验证/推理 ====================
 VAL = True
 SAVE_JSON = False
-CONF = 0.15                         # 验证置信度阈值（默认 0.001，0.15 与 Taote 一致）
+CONF = None                         # None = 用默认（验证 0.001 / 预测 0.25）
 IOU = 0.7
 MAX_DET = 300
 HALF = False
